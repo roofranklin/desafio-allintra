@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import { fetchMarkdownFile } from "../services/bitbucketApi";
+import { useState } from "react";
 
-export default function Home() {
-  const [content, setContent] = useState("");
+import Sidebar from "../components/Sidebar";
+import { MarkdownViewer } from "../components/MarkdownViewer";
 
-  useEffect(() => {
-    fetchMarkdownFile("homepage.md")
-      .then(setContent)
-      .catch(console.error);
-  }, []);
+function App() {
+  const [currentFile, setCurrentFile] = useState("homepage.md");
 
   return (
-    <div className="p-4">
-      <ReactMarkdown>{content}</ReactMarkdown>
+    <div className="flex h-screen">
+      <Sidebar onSelect={setCurrentFile} />
+      <main className="flex-1 p-4 overflow-y-auto">
+        <MarkdownViewer filename={currentFile} />
+      </main>
     </div>
   );
 }
+
+export default App;
