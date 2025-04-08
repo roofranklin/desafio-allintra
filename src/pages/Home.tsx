@@ -3,7 +3,7 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { EditableMarkdownViewer } from "../components/MarkdownViewer";
 
-function App() {
+function Home() {
   const [currentFile, setCurrentFile] = useState("homepage.md");
 
   return (
@@ -16,4 +16,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

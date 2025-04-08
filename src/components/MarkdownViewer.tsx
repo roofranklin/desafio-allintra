@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { saveEdit } from "../utils/storage";
 import ReactMarkdown from "react-markdown";
 
 type Props = {
@@ -49,7 +50,7 @@ export function EditableMarkdownViewer({ filename }: Props) {
   }, [filename]);
 
   const handleSave = () => {
-    localStorage.setItem(storageKey, localContent);
+    saveEdit(filename, localContent);
     setIsSynced(localContent === remoteContent);
     alert("Alterações salvas localmente!");
   };
