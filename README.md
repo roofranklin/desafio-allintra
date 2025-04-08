@@ -23,8 +23,8 @@ Este projeto é uma Single Page Application (SPA) construída em **React + TypeS
 ---
 
 ## Como visualizar online
-Foi feito deploy na Netlify e o mesmo está disposnível em `https://allintra-docs.netlify.app/`
-Trabelhei também a responsividade, portanto se tiver no celular acesse tranquilo que não vai quebrar 😉
+Foi feito deploy na Netlify e o mesmo está disponível em [https://allintra-docs.netlify.app/](https://allintra-docs.netlify.app/)
+Trabalhei também a responsividade, portanto se tiver no celular acesse tranquilo que não vai quebrar 😉
 
 ## 🖥️ Como Rodar Localmente
 
