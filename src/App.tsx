@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import AdminPanel from "./pages/AdminPanel";
-import DiffViewerPage from "./pages/DiffViewerPage";
+import DiffViewer from "./pages/DiffViewerPage";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/diff/:filename" element={<DiffViewerPage />} />
+        <Route path="/admin/diff/:filename" element={<DiffViewer />} />
       </Routes>
     </Router>
   );

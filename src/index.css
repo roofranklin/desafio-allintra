@@ -1,1 +1,11 @@
 @import "tailwindcss";
+body {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+button {
+    cursor: pointer;
+    word-break: break-word;
+}

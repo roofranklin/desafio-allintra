@@ -7,7 +7,7 @@ function Home() {
   const [currentFile, setCurrentFile] = useState("homepage.md");
 
   return (
-    <div className="bg-[#0F1625] min-h-screen text-white">
+    <div className="bg-[#172236] min-h-screen text-white">
       <Header />
       <div className="pt-16 flex">
         <Sidebar onSelect={setCurrentFile} />

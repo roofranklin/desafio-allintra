@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { saveEdit } from "../utils/storage";
 import ReactMarkdown from "react-markdown";
 
+import "../styles/MarkdownViewer.scss";
+
 type Props = {
   filename: string;
 };
@@ -35,10 +37,14 @@ export function EditableMarkdownViewer({ filename }: Props) {
         const text = await res.text();
         setRemoteContent(text);
 
-        const local = localStorage.getItem(storageKey) || "";
-        setLocalContent(local || text);
-
-        setIsSynced(local === "" || local === text);
+        const local = localStorage.getItem(storageKey);
+        if (local) {
+          setLocalContent(local);
+          setIsSynced(local === text); // compara as duas versões
+        } else {
+          setLocalContent(text);
+          setIsSynced(true); // se não tem local, está sincronizado
+        }
       } catch (err) {
         setError("⚠️ Página não encontrada ou arquivo inexistente.");
       } finally {
@@ -50,10 +56,18 @@ export function EditableMarkdownViewer({ filename }: Props) {
   }, [filename]);
 
   const handleSave = () => {
-    saveEdit(filename, localContent);
+    localStorage.setItem(
+      storageKey,
+      localContent
+    );
+    localStorage.setItem(
+      `meta_${storageKey}`,
+      JSON.stringify({ updatedAt: new Date().toISOString() })
+    );
     setIsSynced(localContent === remoteContent);
     alert("Alterações salvas localmente!");
   };
+  
 
   return (
     <main className="p-6 max-w-4xl mx-auto">
@@ -97,7 +111,7 @@ export function EditableMarkdownViewer({ filename }: Props) {
               </button>
             </>
           ) : (
-            <div className="prose max-w-none">
+            <div className="prose max-w-none markdown-container">
               <ReactMarkdown>{localContent}</ReactMarkdown>
             </div>
           )}

@@ -1,0 +1,38 @@
+.markdown-container {
+    pre {
+        overflow-x: auto;
+        background-color: #0F1625;
+    }
+
+    hr {
+        padding: 10px 0;
+    }
+
+    h1 {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-weight: 600;
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-weight: 500;
+        font-size: 1.5rem;
+    }
+
+    ul {
+        padding: 10px 0 10px 25px;
+    }
+
+    li {
+        padding: 5px 0;
+        list-style-type: disc;
+    }
+
+    p {
+        padding: 15px 0;
+    }
+}
