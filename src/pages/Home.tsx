@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className="bg-[#172236] min-h-screen text-white">
       <Header buttonText="Área administrativa" buttonLink="/admin" srcLogo="./logo.png" />
-      <div className="pt-16 flex">
+      <div className="pt-16 block sm:flex">
         <Sidebar onSelect={setCurrentFile} />
         <main className="flex-1 p-6 overflow-auto">
           <EditableMarkdownViewer filename={currentFile} />

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { saveEdit } from "../utils/storage";
 import ReactMarkdown from "react-markdown";
 
 import "../styles/MarkdownViewer.scss";
@@ -40,10 +39,10 @@ export function EditableMarkdownViewer({ filename }: Props) {
         const local = localStorage.getItem(storageKey);
         if (local) {
           setLocalContent(local);
-          setIsSynced(local === text); // compara as duas versões
+          setIsSynced(local === text);
         } else {
           setLocalContent(text);
-          setIsSynced(true); // se não tem local, está sincronizado
+          setIsSynced(true);
         }
       } catch (err) {
         setError("⚠️ Página não encontrada ou arquivo inexistente.");
@@ -65,7 +64,7 @@ export function EditableMarkdownViewer({ filename }: Props) {
       JSON.stringify({ updatedAt: new Date().toISOString() })
     );
     setIsSynced(localContent === remoteContent);
-    alert("Alterações salvas localmente!");
+    alert("Alterações salvas! (somente local)");
   };
   
 
@@ -107,7 +106,7 @@ export function EditableMarkdownViewer({ filename }: Props) {
                 className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 onClick={handleSave}
               >
-                💾 Salvar localmente
+                Salvar (somente local)
               </button>
             </>
           ) : (
