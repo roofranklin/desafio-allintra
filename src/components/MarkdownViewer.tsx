@@ -69,26 +69,26 @@ export function EditableMarkdownViewer({ filename }: Props) {
   
 
   return (
-    <main className="p-6 max-w-4xl mx-auto">
+    <main className="p-0 sm:p-6 max-w-4xl mx-auto">
       {loading && <p className="text-gray-500">Carregando...</p>}
 
       {error && <div className="text-red-600 text-lg font-semibold">{error}</div>}
 
       {!loading && !error && (
         <>
-          <div className="flex items-center justify-between mb-4">
+          <div className="block sm:flex items-center justify-between mb-4">
             <span
-              className={`p-2 rounded text-sm font-medium ${
+              className={`p-2 rounded text-sm font-small sm:font-medium ${
                 isSynced ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
               }`}
             >
               {isSynced
-                ? "✅ Documento sincronizado com o repositório"
-                : "⚠️ Documento modificado localmente"}
+                ? "✅ Sincronizado com o repositório"
+                : "⚠️ Modificado localmente"}
             </span>
 
             <button
-              className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-3 py-1 text-base bg-blue-500 text-white rounded hover:bg-blue-600 mt-4 sm:mt-0 ml-2 sm:ml-0"
               onClick={() => setIsEditing((prev) => !prev)}
             >
               {isEditing ? "Visualizar" : "Editar"}

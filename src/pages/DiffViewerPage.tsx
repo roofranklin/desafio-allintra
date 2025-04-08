@@ -79,7 +79,7 @@ export default function DiffViewer() {
 
   return (
     <div className="min-h-screen bg-[#0F1625] text-white p-8">
-      <Header buttonText="Voltar para Área Administrativa" buttonLink="/admin" srcLogo="../../logo.png" />
+      <Header buttonText="Voltar para Admin" buttonLink="/admin" srcLogo="../../logo.png" />
       <h1 className="text-2xl font-bold mb-6">📝 Comparação: {filename}</h1>
       <div className="bg-[#1B2739] p-4 rounded-xl overflow-x-auto text-sm">
         {diffLines.map((line, index) => (

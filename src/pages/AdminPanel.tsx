@@ -64,7 +64,7 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-[#0F1625] text-white p-8">
-      <Header buttonText="Voltar para Homepage" buttonLink="/" srcLogo="./logo.png" />
+      <Header buttonText="Voltar para Home" buttonLink="/" srcLogo="./logo.png" />
 
       <h1 className="text-2xl font-bold mb-6">📁 Arquivos Editados Localmente</h1>
 
