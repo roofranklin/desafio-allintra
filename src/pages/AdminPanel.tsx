@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 type EditedFile = {
   filename: string;
@@ -63,6 +64,8 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-[#0F1625] text-white p-8">
+      <Header buttonText="Voltar para Homepage" buttonLink="/" srcLogo="./logo.png" />
+
       <h1 className="text-2xl font-bold mb-6">📁 Arquivos Editados Localmente</h1>
 
       {editedFiles.length === 0 ? (
@@ -82,10 +85,10 @@ export default function AdminPanel() {
                 </p>
               </div>
               <Link
-                to={`/admin/diff/${file.filename}`}
+                to={`/admin/diff/${encodeURIComponent(file.filename)}`}
                 className="mt-3 md:mt-0 inline-block px-4 py-2 bg-[#E7454A] text-white rounded-lg hover:bg-[#d13c3e] transition"
               >
-                Ver Diff
+                Ver Diferenças
               </Link>
             </li>
           ))}

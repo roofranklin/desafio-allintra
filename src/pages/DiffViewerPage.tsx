@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Header from "../components/Header";
 
 type LineDiff = {
   type: "added" | "removed" | "unchanged";
@@ -7,7 +8,8 @@ type LineDiff = {
 };
 
 export default function DiffViewer() {
-  const { filename } = useParams<{ filename: string }>();
+  const location = useLocation();
+  const filename = decodeURIComponent(location.pathname.replace("/admin/diff/", ""));
   const [diffLines, setDiffLines] = useState<LineDiff[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -72,11 +74,12 @@ export default function DiffViewer() {
     return diff;
   };
 
-  if (loading) return <p className="text-white p-4">🔄 Carregando diff...</p>;
+  if (loading) return <p className="text-white p-4">Carregando diff...</p>;
   if (error) return <p className="text-red-400 p-4">{error}</p>;
 
   return (
     <div className="min-h-screen bg-[#0F1625] text-white p-8">
+      <Header buttonText="Voltar para Área Administrativa" buttonLink="/admin" srcLogo="../../logo.png" />
       <h1 className="text-2xl font-bold mb-6">📝 Comparação: {filename}</h1>
       <div className="bg-[#1B2739] p-4 rounded-xl overflow-x-auto text-sm">
         {diffLines.map((line, index) => (
