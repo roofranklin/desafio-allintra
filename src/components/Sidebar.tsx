@@ -1,84 +1,50 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { fetchMarkdownFile } from "../services/bitbucketApi";
 
-type MenuSection = {
+interface MenuItem {
   title: string;
-  items: {
-    label: string;
-    file: string;
-  }[];
-};
+  path: string;
+}
 
-type SidebarProps = {
-  onSelect: (file: string) => void;
-};
-
-export default function Sidebar({ onSelect }: SidebarProps) {
-  const [menu, setMenu] = useState<MenuSection[]>([]);
+export function Sidebar({ onSelect }: { onSelect: (path: string) => void }) {
+  const [items, setItems] = useState<MenuItem[]>([]);
+  const location = useLocation();
 
   useEffect(() => {
-    fetchMarkdownFile("_sidebar.md")
-      .then(parseSidebar)
-      .then(setMenu);
+    const loadSidebar = async () => {
+      const content = await fetchMarkdownFile("_sidebar.md");
+      const lines = content.split("\n");
+      const parsed = lines
+        .filter((line) => line.includes("[") && line.includes("]"))
+        .map((line) => {
+          const match = /\[(.*?)\]\((.*?)\)/.exec(line);
+          if (!match) return null;
+          return { title: decodeURIComponent(match[1]), path: match[2] };
+        })
+        .filter(Boolean) as MenuItem[];
+
+      setItems(parsed);
+    };
+
+    loadSidebar();
   }, []);
 
-  function parseSidebar(markdown: string): MenuSection[] {
-    const lines = markdown.split("\n");
-    const sections: MenuSection[] = [];
-    let currentSection: MenuSection | null = null;
-
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/;
-
-    lines.forEach((line) => {
-      const trimmed = line.trim();
-
-      if (trimmed.startsWith("- ") && !linkRegex.test(trimmed)) {
-        // Seção
-        const title = trimmed.replace("- ", "").trim();
-        currentSection = { title, items: [] };
-        sections.push(currentSection);
-      } else if (linkRegex.test(trimmed) && currentSection) {
-        const match = trimmed.match(linkRegex);
-        if (match) {
-            const label = fixEncoding(match[1]);
-          const file = match[2];
-          currentSection.items.push({ label, file });
-        }
-      }
-    });
-
-    function fixEncoding(str: string): string {
-        try {
-          const bytes = new Uint8Array([...str].map(c => c.charCodeAt(0)));
-          const decoder = new TextDecoder("iso-8859-1");
-          return decoder.decode(bytes);
-        } catch (e) {
-          return str;
-        }
-    }
-      
-
-    return sections;
-  }
-
   return (
-    <aside className="w-64 bg-gray-50 p-4 border-r border-gray-200 overflow-y-auto">
-      {menu.map((section) => (
-        <div key={section.title} className="mb-4">
-          <h3 className="text-gray-700 font-semibold mb-2">{section.title}</h3>
-          <ul className="space-y-1 pl-2">
-            {section.items.map((item) => (
-              <li
-                key={item.file}
-                className="cursor-pointer text-blue-600 hover:underline"
-                onClick={() => onSelect(item.file)}
-              >
-                {item.label}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <aside className="w-64 h-[calc(100vh-4rem)] bg-[#0F1625] text-white p-4 border-r border-gray-800 overflow-auto">
+      <nav className="space-y-2">
+        {items.map((item) => (
+          <button
+            key={item.path}
+            onClick={() => onSelect(item.path)}
+            className={`block w-full text-left px-3 py-2 rounded hover:bg-[#E7454A]/20 ${
+              location.pathname.includes(item.path) ? "bg-[#E7454A]/30" : ""
+            }`}
+          >
+            {item.title}
+          </button>
+        ))}
+      </nav>
     </aside>
   );
 }
