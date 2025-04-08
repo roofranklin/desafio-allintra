@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { fetchMarkdownFile } from "../services/bitbucketApi";
+import { fetchMarkdownFile } from "../utils/bitbucketApi";
 
 interface MenuItem {
   title: string;

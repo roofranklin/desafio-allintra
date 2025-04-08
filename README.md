@@ -1,54 +1,102 @@
-# React + TypeScript + Vite
+# Documentação Markdown consumida da API do Bitbucket com opção de edição local
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma Single Page Application (SPA) construída em **React + TypeScript + Vite**, que consome arquivos Markdown diretamente de um repositório no **Bitbucket**, permitindo:
 
-Currently, two official plugins are available:
+- Visualização dos arquivos Markdown
+- Edição local com salvamento no `localStorage`
+- Comparação (diff) entre versões locais e remotas
+- Sessão administrativa para gerenciamento das edições
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [React Router](https://reactrouter.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Sass](https://sass-lang.com/)
+- [React Markdown](https://www.npmjs.com/package/react-markdown)
+- [diff-match-patch](https://github.com/google/diff-match-patch) – biblioteca para visualização de diferenças entre textos
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 🖥️ Como Rodar Localmente
+
+### 🔧 Requisitos mínimos
+
+- [Node.js](https://nodejs.org/) >= 18
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+### Passo a passo
+
+1. **Clone o repositório**  
+```bash
+  git clone https://github.com/seu-usuario/seu-projeto.git
+  cd seu-projeto
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. **Instale as dependências**
+```bash
+  npm install
+  # ou
+  yarn
 ```
+
+3. **Inicie o servidor de desenvolvimento**
+```bash
+  npm run dev
+  # ou
+  yarn dev
+```
+
+4. **Abra seu navegador**
+Acesse `http://localhost:5173`
+
+## Funcionalidades
+
+### Homepage
+- Exibe a estrutura de navegação (_sidebar.md)
+- Carrega os arquivos .md correspondentes
+- Permite entrar em modo de edição com textarea
+- Mostra status de sincronizado/não sincronizado
+
+### Edição Local
+- Salva alterações no localStorage
+- Mantém backup local mesmo ao recarregar a página
+- Mostra ícone/estado indicando alterações pendentes
+
+### Área Administrativa
+- Lista todos os arquivos modificados localmente
+- Ordena por data/hora da última edição
+- Permite ver um diff visual entre o original e a versão local
+
+## Possíveis Problemas e Soluções (Troubleshooting)
+
+| Problema                                                   | Solução                                                                                      |
+|------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Arquivo Markdown abre em branco                            | Verifique se o nome do arquivo está correto e existe no repositório                          |
+| Arquivos com subpastas não abrem no diff                   | Certifique-se de que a rota `/admin/diff/*` está corretamente configurada no `react-router`  |
+| Alterações somem ao voltar para a homepage                 | Verifique se o conteúdo salvo está sendo buscado do `localStorage` corretamente              |
+| Arquivo continua listado no admin mesmo após restaurar     | Remova o item do `localStorage` caso ele esteja idêntico ao do repositório                   |
+
+## Estrutura de pastas simplificada
+```bash
+src/
+├── components/
+│   ├── Header.tsx
+│   ├── markdownViewer.tsx
+│   └── Sidebar.tsx
+├── pages/
+│   ├── HomePage.tsx
+│   ├── AdminPanel.tsx
+│   └── DiffViewerPage.tsx
+├── utils/
+│   ├── storage.ts
+│   └── bitbucketApi.ts
+├── App.tsx
+└── main.tsx
+```
+
+### Desenvolvido por [Roosevelt Franklin](https://rcode.com.br)
