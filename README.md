@@ -99,4 +99,8 @@ src/
 └── main.tsx
 ```
 
+## Testes de componentes
+Fiz pequenos testes nos componentes com Vitest, caso tivesse mais tempo hábil poderia implementar testes em toda a aplicação, inclusive e2e em Playwright.
+Para rodar os testes execute o comando `npx vitest run` no terminal.
+
 ### Desenvolvido por [Roosevelt Franklin](https://rcode.com.br)
