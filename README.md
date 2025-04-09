@@ -37,8 +37,8 @@ Trabalhei também a responsividade, portanto se tiver no celular acesse tranquil
 
 1. **Clone o repositório**  
 ```bash
-  git clone https://github.com/seu-usuario/seu-projeto.git
-  cd seu-projeto
+  git clone https://github.com/roofranklin/desafio-allintra/.git
+  cd desafio-allintra
 ```
 
 2. **Instale as dependências**
